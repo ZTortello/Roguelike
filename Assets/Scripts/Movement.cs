@@ -2,24 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class NewBehaviourScript : MonoBehaviour
+public class Movement : MonoBehaviour
 {
-    private Rigidbody rb;
-    private Vector3 input;
-    public float speed;
-    // Start is called before the first frame update
-    private void Start()
+    public CharacterController controller;
+    public float Speed = 12f;
+
+    void Update()
     {
-        rb = GetComponent<Rigidbody>();
+        float x = Input.GetAxis("Horizontal");
+        float z = Input.GetAxis("Vertical");
+        Vector3 move = transform.right * x + transform.forward * z;
+        controller.Move(move * Speed * Time.deltaTime);
     }
 
-    // Update is called once per frame
-    private void Update()
-    {
-        input = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-    }
-    private void FixedUpdate()
-    {
-        rb.MovePosition(rb.position + input * speed);
-    }
 }
